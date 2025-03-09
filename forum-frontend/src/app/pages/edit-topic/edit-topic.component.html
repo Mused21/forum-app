@@ -1,0 +1,18 @@
+<div class="container" *ngIf="topic">
+    <mat-card>
+      <mat-card-title>Edit Topic</mat-card-title>
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput [(ngModel)]="topic.title" name="title" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Content</mat-label>
+            <textarea matInput [(ngModel)]="topic.content" name="content" required></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Save Changes</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

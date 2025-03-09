@@ -1,0 +1,44 @@
+<div class="container" *ngIf="topic">
+  <mat-card class="topic-card">
+    <mat-card-header>
+      <mat-card-title>{{ topic.title }}</mat-card-title>
+      <mat-card-subtitle>
+        by {{ topic.author?.username || 'Deleted User' }} &nbsp;|&nbsp;
+        Category: {{ topic.category?.name || 'None' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ topic.content }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="comments-section">
+    <h3>Comments</h3>
+    <mat-card *ngFor="let comment of comments" class="comment-card">
+      <mat-card-content>
+        <p>{{ comment.content }}</p>
+        <small>by {{ comment.author?.username || 'Deleted User' }}</small>
+        <button 
+          *ngIf="(authService.currentUser | async)?.role === 'moderator'" 
+          mat-button color="warn" (click)="deleteComment(comment._id)">
+          Delete Comment
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="(authService.currentUser | async) as user" class="comment-form">
+    <mat-card>
+      <mat-card-title>Add Comment</mat-card-title>
+      <mat-card-content>
+        <form (ngSubmit)="addComment()">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Your Comment</mat-label>
+            <textarea matInput [(ngModel)]="newComment" name="newComment" required></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="accent" type="submit">Submit</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

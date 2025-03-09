@@ -1,0 +1,26 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Create Topic</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Title</mat-label>
+          <input matInput [(ngModel)]="topic.title" name="title" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Content</mat-label>
+          <textarea matInput [(ngModel)]="topic.content" name="content" required></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Category</mat-label>
+          <mat-select [(ngModel)]="topic.category" name="category" required>
+            <mat-option *ngFor="let cat of categories" [value]="cat._id">
+              {{ cat.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Create</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

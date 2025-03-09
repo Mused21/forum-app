@@ -1,0 +1,3 @@
+# ForumFrontend
+
+docker-compose up

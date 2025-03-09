@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span routerLink="/topics" class="app-title">Forum App</span>
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="(authService.currentUser | async) as user; else guest">
+    <span class="welcome-text">Welcome, {{ user.username }}!</span>
+    <button *ngIf="user.role === 'moderator'" mat-button routerLink="/admin">Admin</button>
+    <button mat-button (click)="onLogout()">Logout</button>
+  </ng-container>
+
+  <ng-template #guest>
+    <button mat-button routerLink="/login">Login</button>
+    <button mat-button routerLink="/register">Register</button>
+  </ng-template>
+</mat-toolbar>

@@ -1,0 +1,72 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Add Category</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="addCategory()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Category Name</mat-label>
+          <input matInput [(ngModel)]="newCategory.name" name="name" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput [(ngModel)]="newCategory.description" name="description"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Add Category</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style="margin-top: 16px;">
+    <mat-card-title>Category Management</mat-card-title>
+    <mat-card-content>
+      <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Category </th>
+          <td mat-cell *matCellDef="let category"> {{ category.name }} </td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let category"> {{ category.description }} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let category">
+            <button mat-button color="warn" (click)="deleteCategory(category._id)">Delete</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedCategoryColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedCategoryColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style="margin-top: 16px;">
+    <mat-card-title>User Management</mat-card-title>
+    <mat-card-content>
+      <table mat-table [dataSource]="users" class="mat-elevation-z8">
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef> Username </th>
+          <td mat-cell *matCellDef="let user"> {{ user.username }} </td>
+        </ng-container>
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef> Role </th>
+          <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let user">
+            <button 
+              *ngIf="user.role !== 'moderator'" 
+              mat-button 
+              color="warn" 
+              (click)="deleteUser(user._id)">
+              Delete
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedUserColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedUserColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
